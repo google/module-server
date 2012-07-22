@@ -1,7 +1,14 @@
 var path = require('path');
 var fs = require('fs');
 
-
+/**
+ * Make a module server that serves JS from memory and loads it from disk.
+ * @param {string} pathPrefix Directory where JS files can be found. JS files
+ *     are expected to be pathPrefix + name + '.js'
+ * @param {string} graphFilename Filename of a module graph serialization.
+ * @return {function(Array.<string>,Array.<string>,
+ *     function(Error,number,string),Object)}
+ */
 exports.from = function(pathPrefix, graphFilename) {
   var graph = require('./module-graph').fromFilename(graphFilename);
 
@@ -13,7 +20,7 @@ exports.from = function(pathPrefix, graphFilename) {
     modules[name] = js;
   });
 
-  return function(moduleNames, excludeNames, onJs, options) {
+  var fn = function(moduleNames, excludeNames, onJs, options) {
     options = options || {};
     var debug = options.debug;
     var log = options.onLog || function() {};
@@ -34,4 +41,7 @@ exports.from = function(pathPrefix, graphFilename) {
     }
     onJs(null, js.length, js);
   };
+  fn.NotFoundException = graph.NotFoundException;
+
+  return fn;
 }

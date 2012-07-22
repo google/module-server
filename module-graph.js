@@ -1,9 +1,29 @@
+// Copyright 2012 Google Inc. All Rights Reserved.
+
+/**
+ * Module for module graphs and dependency calculation.
+ */
+
 var fs = require('fs');
 
+/**
+ * Make a ModuleGraph from an object as it is output by closure compiler
+ * when passed the TODO compiler flag.
+ * @param {Array.<Object>} modules Array of module definitions.
+ * @return {ModuleGraph}
+ */
 exports.fromSerialization = function(modules) {
   return new ModuleGraph(modules);
 };
 
+// TODO: Should this exist. Nice for convenience, but there should almost
+// certainly not be more data access methods in this module.
+/**
+ * Make a ModuleGraph from a file as it is output by closure compiler
+ * when passed the TODO compiler flag.
+ * @param {string} filename Filename of the module graph file.
+ * @return {ModuleGraph}
+ */
 exports.fromFilename = function(filename) {
   var str = fs.readFileSync(filename, 'utf8');
   return new ModuleGraph(JSON.parse(str));
@@ -19,6 +39,10 @@ Module.prototype.toString = function() {
   return '<Module: ' + this.name + '>';
 };
 
+/**
+ * A module graph class.
+ * @constructor
+ */
 function ModuleGraph(moduleData) {
   var self = this;
   var modules = {};
@@ -29,32 +53,52 @@ function ModuleGraph(moduleData) {
     moduleNameList.push(info.name);
   });
 
+  /**
+   * Get a list of all module names.
+   * @return {Array.<string>} List of module names.
+   */
   this.getAllModules = function() {
     return moduleNameList;
   };
 
+  /**
+   * Get transitive dependencies for a given module
+   * @param {string} name Name of the module.
+   * @return {Array.<string>} List of module names.
+   */
   this.getTransitiveDependencies = function(name) {
-    var m = modules[name];
-    if (!m) {
-      return null;
-    }
-    return m.transitiveDeps;
+    var m = getModule(name);
+    return m.transitiveDeps || [];
   };
 
   function getModule(name) {
     var m = modules[name];
     if (!m) {
-      throw new self.NotFoundException('Unknown module: ' + name);
+      throw new self.NotFoundException(name);
     }
     return m;
   }
 
-  this.NotFoundException = function(msg) {
+  /**
+   * Error object used when a requested module cannot be found.
+   * @constructor
+   */
+  this.NotFoundException = function(name) {
+    var msg = 'Unknown module: ' + name;
+    this.name = name;
+    this.message = msg;
     Error.call(this, msg);
   };
   this.NotFoundException.prototype = new Error();
   this.NotFoundException.prototype.statusCode = 404;
 
+  /**
+   * Gets the requested module names and their transitive deps minus the
+   * transitive deps (and the) of the optional excluded names.
+   * @param {Array.<string>} moduleNames List of module names.
+   * @apram {Array.<string>} opt_excludeNames List of module names to exclude.
+   * @return {Array.<string>} List of module names.
+   */
   this.getModules = function(moduleNames, opt_excludeNames) {
     var list = [];
     var seen = {};
