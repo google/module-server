@@ -40,9 +40,10 @@ function ModuleServer(urlPrefix, load, getUrl) {
       this.requested[module].push(cb);
       return;
     }
+    var before = this.requestedList.slice();
     this.requestedList.push(module);
-    var cbs = this.requested[module] = [];
-    load(getUrl(this.urlPrefix, module, this.requestedList), function() {
+    var cbs = this.requested[module] = [cb];
+    load(getUrl(this.urlPrefix, module, before), function() {
       self.loaded[module] = true;
       self.requested[module] = null;
       for (var i = 0; i < cbs.length; i++) {
@@ -51,7 +52,7 @@ function ModuleServer(urlPrefix, load, getUrl) {
     });
   };
 
-  var instance = new ModulServer(urlPrefix);
+  var instance = new ModuleServer(urlPrefix);
   return function(module, cb) {
     instance.load(module, cb);
   };
