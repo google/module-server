@@ -1,9 +1,16 @@
 var http = require('http');
+var fs = require('fs');
 
-var moduleServer = require('./module-server').from('test/fixtures/build',
-    'test/fixtures/graph.json');
+var SOURCE_DIR = 'test/fixtures';
+var SOURCEMAP_PREFIX = '/_sourcemap';
+var SOURCEMAP_PATH_PREFIX_REGEX = /^\/_sourcemap\//;
+var ORIGINAL_SOURCE_PATH_PREFIX = 'http://127.0.0.1:1337/_js';
+var ORIGINAL_SOURCE_PATH_PREFIX_REGEX = /^\/_js\//;
 
-function jsForPath(path, onJs) {
+var moduleServer = require('./module-server').from(SOURCE_DIR + '/build',
+    SOURCE_DIR + '/graph.json');
+
+function jsForPath(path, isSourceMapRequest, onJs) {
   path = path.replace(/^\//, '');
   var parts = path.split(/\//);
   var modules = decodeURIComponent(parts.shift()).split(/,/);
@@ -17,6 +24,8 @@ function jsForPath(path, onJs) {
     exclude = options.exm.split(/,/);
   }
   return moduleServer(modules, exclude, onJs, {
+    createSourceMap: isSourceMapRequest,
+    sourceMapSourceRootUrlPrefix: ORIGINAL_SOURCE_PATH_PREFIX,
     debug: true,
     onLog: function() {
       console.log(arguments);
@@ -27,7 +36,30 @@ function jsForPath(path, onJs) {
 http.createServer(function (req, res) {
   var url = require('url').parse(req.url);
   console.log('Path ' + url.pathname);
-  jsForPath(url.pathname, function(err, length, js) {
+  if (ORIGINAL_SOURCE_PATH_PREFIX_REGEX.test(url.pathname)) {
+    var filename = SOURCE_DIR + '/' + url.pathname
+        .replace(ORIGINAL_SOURCE_PATH_PREFIX_REGEX, '');
+    fs.readFile(filename, 'utf8', function(err, js) {
+      if (err) {
+        throw err;
+      } else {
+        res.writeHead(200, {
+          'Content-Type': 'application/javascript',
+          'Content-Length': js.length,
+          'Pragma': 'no-cache'
+        });
+        res.end(js, 'utf8');
+      }
+    });
+    return;
+  }
+  var isSourceMapRequest = false;
+  if (SOURCEMAP_PATH_PREFIX_REGEX.test(url.pathname)) {
+    isSourceMapRequest = true;
+    url.pathname = url.pathname.replace(SOURCEMAP_PATH_PREFIX_REGEX, '/');
+  }
+  jsForPath(url.pathname, isSourceMapRequest, function(err, length, js,
+      sourceMap) {
     if (err) {
       console.log('Error', err);
       if (err.statusCode) {
@@ -38,11 +70,24 @@ http.createServer(function (req, res) {
         res.end('Internal server error');
       }
     } else {
-      res.writeHead(200, {
-        'Content-Type': 'application/javascript',
-        'Content-Length': length,
-      });
-      res.end(js, 'utf8');
+      if (isSourceMapRequest) {
+        var map = JSON.stringify(sourceMap, null, ' ');
+        res.writeHead(200, {
+          'Content-Type': 'application/json',
+          'Content-Length': map.length,
+          'Pragma': 'no-cache'
+        });
+        res.end(map, 'utf8');
+      } else {
+        var mapUrl = SOURCEMAP_PREFIX + url.pathname;
+        res.writeHead(200, {
+          'Content-Type': 'application/javascript',
+          'Content-Length': length,
+          'SourceMap': mapUrl,
+          'X-SourceMap': mapUrl
+        });
+        res.end(js, 'utf8');
+      }
     }
   });
 }).listen(1337, '127.0.0.1');
