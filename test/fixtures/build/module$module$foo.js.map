@@ -1,0 +1,8 @@
+{
+"version":3,
+"file":"module$module$foo",
+"lineCount":1,
+"mappings":"AAAA,IAAAA,kBAAA,EAAA,CAAIC,wBAAOC,qBAAX,CACIC,uBAAMC;",
+"sources":["module/foo.js"],
+"names":["module$module$foo","impl","module$module$baz$foo","bar","module$module$bar"]
+}

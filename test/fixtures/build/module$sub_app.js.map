@@ -1,0 +1,8 @@
+{
+"version":3,
+"file":"module$sub_app",
+"lineCount":1,
+"mappings":"AAAA,IAAAA,eAAA,QAAiBC,QAAQ,EAAG,CAC1B,MAAO,KADmB,CAA5B;",
+"sources":["sub-app.js"],
+"names":["module$sub_app","module$sub_app.subApp"]
+}

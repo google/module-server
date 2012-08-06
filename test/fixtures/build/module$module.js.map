@@ -1,0 +1,8 @@
+{
+"version":3,
+"file":"module$module",
+"lineCount":1,
+"mappings":"AAAA,IAAAA,cAAA,EAAA,CAAIC,sBAASC,iBAKbC,cAAAC,KAAA,CAAeC,QAAQ,EAAG,CACxB,MAAOJ,sBADiB;",
+"sources":["module.js"],
+"names":["module$module","module","module$module$foo","exports","test","module$module.test"]
+}
