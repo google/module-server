@@ -13,8 +13,8 @@ test('module server', function(t) {
     t.is(length, subApp.length);
   });
 
-  var expectedJs = subApp + getJs(['module$module$baz$foo',
-      'module$module$bar', 'module$module$foo']);
+  var expectedJs = subApp + getJs(['module$module$bar',
+      'module$module$baz$foo', 'module$module$foo']);
   server(['module$sub_app', 'module$module$foo'], [],
       function(err, length, js) {
     t.is(err, null);
@@ -61,7 +61,7 @@ function getJs(names) {
   var js = '';
   names.forEach(function(name) {
     var filename = './fixtures/build/' + name + '.js';
-    js += require('fs').readFileSync(filename, 'utf8');
+    js += require('fs').readFileSync(filename, 'utf8') + '\n';
   });
   return js;
 }

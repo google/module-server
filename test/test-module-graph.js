@@ -24,9 +24,9 @@ test('graph', function(t) {
   t.is(graph.getAllModules()[0], data[0].name);
 
   var modules = graph.getModules(['module$app']);
-  t.equivalent(modules, ['module$module$foo', 'module$module',
-      'module$module$baz$foo', 'module$sub_app', 'module$module$bar',
-      'module$app']);
+  t.equivalent(modules, ['module$module$bar', 'module$module$foo',
+      'module$sub_app', 'module$module$baz$foo',
+      'module$module', 'module$app']);
 
   var modules = graph.getModules(['module$sub_app']);
   t.equivalent(modules, ['module$sub_app']);
@@ -40,9 +40,8 @@ test('graph', function(t) {
   }, new graph.NotFoundException(notFound));
 
   var modules = graph.getModules(['module$app'], ['module$sub_app']);
-  t.equivalent(modules, ['module$module$foo', 'module$module',
-      'module$module$baz$foo', 'module$module$bar',
-      'module$app']);
+  t.equivalent(modules, ['module$module$bar', 'module$module$foo',
+      'module$module$baz$foo',  'module$module', 'module$app']);
 
   var modules = graph.getModules(['module$app'], ['module$module$foo',
       'module$sub_app']);
