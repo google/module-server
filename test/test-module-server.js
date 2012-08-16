@@ -56,7 +56,7 @@ test('logging', function(t) {
 });
 
 test('source maps', function(t) {
-  t.plan(19);
+  t.plan(21);
 
   var prefix = 'http://prefix';
 
@@ -84,14 +84,16 @@ test('source maps', function(t) {
     t.is(s0.offset.column, 0);
     t.ok(s0.map);
     t.ok(s0.map.version, 3);
-    t.ok(s0.map.file);
+    t.is(s0.map.file, files[0]);
     t.ok(s0.map.mappings);
     t.ok(s0.map.sourceRoot, prefix);
 
     t.is(sections[1].offset.line, 3);
     t.is(sections[1].offset.column, 0);
+    t.is(sections[1].map.file, files[1]);
     t.is(sections[2].offset.line, 5);
     t.is(sections[2].offset.column, 0);
+    t.is(sections[2].map.file, files[2]);
   }, options);
 });
 
