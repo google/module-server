@@ -5,11 +5,16 @@ function JsModuleFile(pathPrefix, name) {
   this.filename = path.join(pathPrefix, name + '.js');
   // TODO(malteubl): Add async updates.
   this.js = fs.readFileSync(this.filename, 'utf8');
-  this.map = JSON.parse(fs.readFileSync(this.filename + '.map', 'utf8'));
+  this.map = fs.readFileSync(this.filename + '.map', 'utf8');
 }
 
 JsModuleFile.prototype.getNumberOfLines = function() {
   return this.js.split(/\n/).length;
+};
+
+JsModuleFile.prototype.getMap = function() {
+  // Return a fresh copy every time.
+  return JSON.parse(this.map);
 };
 
 /**
@@ -53,7 +58,7 @@ exports.from = function(pathPrefix, graphFilename) {
       var file = modules[name];
       js += file.js + '\n';
       if (createSourceMap) {
-        var map = file.map;
+        var map = file.getMap();
         map.sourceRoot = options.sourceMapSourceRootUrlPrefix;
         sourceMapSections.push({
           offset: {

@@ -86,7 +86,7 @@ test('source maps', function(t) {
     t.ok(s0.map.version, 3);
     t.is(s0.map.file, files[0]);
     t.ok(s0.map.mappings);
-    t.ok(s0.map.sourceRoot, prefix);
+    t.is(s0.map.sourceRoot, prefix);
 
     t.is(sections[1].offset.line, 3);
     t.is(sections[1].offset.column, 0);
