@@ -1,0 +1,25 @@
+{
+    "name":"module-compiler",
+    "version":"0.0.1",
+    "description":"Compiles JavaScript for module-server",
+    "keywords":["modules"],
+    "author":"Google Inc",
+    "repository":{
+        "url":"https://github.com/cramforce/module-server.git",
+        "type":"git"
+    },
+    "dependencies":{
+        "fs-watcher:"*",
+        "findit": "*"
+    },
+    "bin": {
+        "module-compiler": "./module-compiler.js"
+    },
+    "bugs":{
+        "url":"https://github.com/cramforce/module-server/issues"
+    },
+    "main":"index",
+    "engines":{
+        "node":">= 0.8.0"
+    }
+}
