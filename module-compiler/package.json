@@ -9,11 +9,12 @@
         "type":"git"
     },
     "dependencies":{
-        "fs-watcher:"*",
-        "findit": "*"
+        "fs-watcher:"0.2.1",
+        "findit": "0.1.2",
+        "opt": "0.0.9"
     },
     "bin": {
-        "module-compiler": "./module-compiler.js"
+        "module-compiler": "./bin.js"
     },
     "bugs":{
         "url":"https://github.com/cramforce/module-server/issues"
