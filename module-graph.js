@@ -37,11 +37,16 @@ exports.fromSerialization = function(modules) {
  * Make a ModuleGraph from a file as it is output by closure compiler
  * when passed the TODO compiler flag.
  * @param {string} filename Filename of the module graph file.
+ * @apram {function(Error, ModuleGraph)}
  * @return {ModuleGraph}
  */
-exports.fromFilename = function(filename) {
-  var str = fs.readFileSync(filename, 'utf8');
-  return new ModuleGraph(JSON.parse(str));
+exports.fromFilename = function(filename, cb) {
+  fs.readFile(filename, 'utf8', function(err, str) {
+    if (err) {
+      return cb(err);
+    }
+    cb(null, new ModuleGraph(JSON.parse(str)));
+  });
 };
 
 function Module(info) {

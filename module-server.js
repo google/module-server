@@ -17,11 +17,25 @@
 var path = require('path');
 var fs = require('fs');
 
-function JsModuleFile(pathPrefix, name) {
-  this.filename = path.join(pathPrefix, name + '.js');
-  // TODO(malteubl): Add async updates.
-  this.js = fs.readFileSync(this.filename, 'utf8');
-  this.map = fs.readFileSync(this.filename + '.map', 'utf8');
+function JsModuleFile(pathPrefix, name, onSource, onSourceMap) {
+  var self = this;
+  self.filename = path.join(pathPrefix, name + '.js');
+  self.js = null;
+  self.map = null;
+  fs.readFile(this.filename, 'utf8', function(err, data) {
+    if (err) {
+      return onSource(err);
+    }
+    self.js = data;
+    onSource(null, self);
+  });
+  fs.readFile(this.filename + '.map', 'utf8', function(err, data) {
+    if (err) {
+      return onSourceMap(err);
+    }
+    self.map = data;
+    onSourceMap(null, self);
+  });
 }
 
 JsModuleFile.prototype.getNumberOfLines = function() {
@@ -33,24 +47,8 @@ JsModuleFile.prototype.getMap = function() {
   return JSON.parse(this.map);
 };
 
-/**
- * Make a module server that serves JS from memory and loads it from disk.
- * @param {string} pathPrefix Directory where JS files can be found. JS files
- *     are expected to be pathPrefix + name + '.js'
- * @param {string} graphFilename Filename of a module graph serialization.
- * @return {function(Array.<string>,Array.<string>,
- *     function(Error,number,string),Object)}
- */
-exports.from = function(pathPrefix, graphFilename) {
-  var graph = require('./module-graph').fromFilename(graphFilename);
-
-  var modules = {};
-
-  graph.getAllModules().forEach(function(name) {
-    modules[name] = new JsModuleFile(pathPrefix, name);
-  });
-
-  var fn = function(moduleNames, excludeNames, onJs, options) {
+function makeServer(graph, modules) {
+  return function(moduleNames, excludeNames, onJs, options) {
     options = options || {};
     var debug = options.debug;
     var log = options.onLog || function() {};
@@ -92,8 +90,41 @@ exports.from = function(pathPrefix, graphFilename) {
       sections: sourceMapSections
     } : null;
     onJs(null, js.length, js, sourceMap);
-  };
-  fn.NotFoundException = graph.NotFoundException;
+  }
+};
 
-  return fn;
+/**
+ * Make a module server that serves JS from memory and loads it from disk.
+ * @param {string} pathPrefix Directory where JS files can be found. JS files
+ *     are expected to be pathPrefix + name + '.js'
+ * @param {string} graphFilename Filename of a module graph serialization.
+ * @param {function(Error,function(Array.<string>,Array.<string>,
+ *     function(Error,number,string),Object))} initCompleteCb Callback to be
+ *     fired when the server is ready.
+ * @return {*}
+ */
+exports.from = function(pathPrefix, graphFilename, initCompleteCb) {
+  require('./module-graph').fromFilename(graphFilename, function(err, graph) {
+    if (err) {
+      return initCompleteCb(err);
+    }
+    var modules = {};
+    var allModules = graph.getAllModules();
+    allModules.forEach(function(name) {
+      modules[name] = new JsModuleFile(pathPrefix, name, onFile, onFile);
+    });
+
+    var fn = makeServer(graph, modules);
+    fn.NotFoundException = graph.NotFoundException;
+
+    var loaded = 0;
+    function onFile(err) {
+      if (err) {
+        return initCompleteCb(err);
+      }
+      if (++loaded == allModules.length * 2) {
+        initCompleteCb(null, fn);
+      }
+    }
+  });
 }
