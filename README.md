@@ -31,3 +31,11 @@ TODO example
 module-compiler/bin.js is a wrapper around closure compiler for compiling JS for serving with Module Server. Run with --help for usage. It supports watching a directly tree for automatic compilation when you change your sources and it ships with closure compiler for easy installation.
 
 Make sure you have the java binary in your path :)
+
+## Fine print
+
+<dl>
+  <dt>Author</dt><dd><a href="https://github.com/cramforce">Malte Ubl</a></dd>
+  <dt>Copyright</dt><dd>Copyright © 2012 Google, Inc.</dd>
+  <dt>License</dt><dd>Apache 2.0</dd>
+</dl>
