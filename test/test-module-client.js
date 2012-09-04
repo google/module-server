@@ -81,3 +81,26 @@ test('loading-modules', function(t) {
   t.equivalent(modules[3], ModuleServer.m[module2]);
   t.end();
 });
+
+test('default $LAB.js loader', function(t) {
+  var url;
+  var calledWait = false;
+  GLOBAL.window = {};
+  GLOBAL.window.$LAB = {
+    script: function(u) {
+      url = u;
+      return {
+        wait: function() {
+          calledWait = true;
+        }
+      };
+    }
+  };
+
+  var loadModule = ModuleServer(URL_PREFIX);
+  loadModule('foo/bar/lab');
+  var module0 = 'module$foo$bar$lab'
+  t.ok(calledWait);
+  t.is(url, URL_PREFIX + '/' + encodeURIComponent(module0));
+  t.end();
+});

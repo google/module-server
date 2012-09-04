@@ -23,7 +23,7 @@ function ModuleServer(urlPrefix, load, getUrl) {
 
   if (!load) {
     (function() {
-      var lab = $LAB;
+      var lab = window.$LAB;
       load = function(url, cb) {
         lab.script(url).wait(cb);
       };
