@@ -14,6 +14,21 @@
  * limitations under the License.
  */
 
+/**
+ * Creates a Module loader.
+ * USAGE:
+ *   window.loadModule = ModuleServer('http://url./of/your/module/server/');
+ * @param {string} urlPrefix URL prefix of your module server.
+ * @param {function(string,Function)=} load OPTIONAL function to load JS
+ *     from a given URL, that fires a callback when the JS loaded. If
+ *     you do not provide this function, you need to include $LAB.js in the
+ *     current page. If you want to implement your own loader, make sure it
+ *     supports executing JS in load order (ideally without blocking).
+ * @param {Function=} getUrl OPTIONAL function to create a URL given the
+ *     urlPrefix, the current module name and a list of modules that have
+ *     already been requested. You will need to provide this if your server
+ *     does not follow the conventions of demo-server.js.
+ */
 function ModuleServer(urlPrefix, load, getUrl) {
   if (!urlPrefix) {
     urlPrefix = './';
@@ -24,8 +39,6 @@ function ModuleServer(urlPrefix, load, getUrl) {
     // present in the current page.
     (function() {
       var lab = window.$LAB;
-      // If you want to implement your own loader, make sure it supports
-      // executing JS in load order (ideally without blocking).
       load = function(url, cb) {
         lab.script(url).wait(cb);
       };
