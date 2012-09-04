@@ -34,7 +34,7 @@ function ModuleServer(urlPrefix, load, getUrl) {
     getUrl = function(urlPrefix, module, requested) {
       return urlPrefix.replace(/\/$/, '') + '/' + encodeURIComponent(module) +
           (requested.length > 0 ? '/' + encodeURIComponent(
-              requested.join(',')) : '');
+              requested.sort().join(',')) : '');
     };
   }
 
@@ -77,12 +77,16 @@ function ModuleServer(urlPrefix, load, getUrl) {
   };
 
   var instance = new Server(urlPrefix);
-  return function(module, cb) {
+  function loadModule(module, cb) {
     instance.load(module, cb);
   };
+  loadModule.instanceForTesting_ = instance;
+  return loadModule;
 }
 
 // Registry for loaded modules.
 ModuleServer.m = {};
 
-// var require = ModuleServer();
+if (typeof exports != 'undefined') {
+  exports.ModuleServer = ModuleServer;
+}
