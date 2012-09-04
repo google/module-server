@@ -29,6 +29,10 @@
  *     urlPrefix, the current module name and a list of modules that have
  *     already been requested. You will need to provide this if your server
  *     does not follow the conventions of demo-server.js.
+ * @return {function(string, function(*)=)} Returns a function to load modules
+ *     The first param is the name of the module and the second param is a
+ *     callback that fires when the module loaded. It received the exports
+ *     object of the module as its first param.
  */
 function ModuleServer(urlPrefix, load, getUrl) {
   if (!urlPrefix) {
@@ -96,7 +100,6 @@ function ModuleServer(urlPrefix, load, getUrl) {
   function loadModule(module, cb) {
     instance.load(module, cb);
   };
-  loadModule.instanceForTesting_ = instance;
   return loadModule;
 }
 
