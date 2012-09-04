@@ -1,14 +1,14 @@
 /**
  * Copyright 2012 Google Inc. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -25,10 +25,9 @@ function compile(userArgs, cb) {
     // Adds default externs.
     '--externs', __dirname + '/externs.js'
   ];
-  jsFiles.forEach(function(filename) {
-    args.push('--js', filename);
-  });
   for (var key in userArgs) {
+    // If the value is an array the key is appended one time per element in the
+    // array.
     var vals = userArgs[key];
     if (!(vals instanceof Array)) {
       vals = [vals];
@@ -41,11 +40,14 @@ function compile(userArgs, cb) {
       }
     })
   }
-  console.log('Compiling ' + jsFiles.join(', ') + '\n...');
+  jsFiles.forEach(function(filename) {
+    args.push('--js', filename);
+  });
+  console.log('Compiling ' + jsFiles.join(', ') + '\n…');
   run(args);
 
   function run(args) {
-    // console.log('Running ' + JSON.stringify(args) + '…');
+    console.log('Running closure compiler: ' + JSON.stringify(args) + '\n…');
     var compiler = require('child_process').spawn('java', args, {
       stdio: 'inherit'
     });
@@ -68,6 +70,7 @@ function compile(userArgs, cb) {
 
 var idle = true;
 function compileIfIdle(path, args) {
+  // TODO remove this chdir.
   process.chdir(path);
   if (idle) {
     idle = false;
@@ -81,11 +84,11 @@ exports.compile = compileIfIdle;
 exports.watch = function(path, args) {
   function onChange(type, o) {
     if (o.path !== 'graph.json') { // TODO get rid of this.
-      console.log(type + ": " + o.path + (o.dir === true ? ' [DIR]' : ''))
+      console.log(type + ': ' + o.path + (o.dir === true ? ' [DIR]' : ''))
       compileIfIdle(path, args);
     }
   }
-  var Watcher = require("fs-watcher").watch;
+  var Watcher = require('fs-watcher').watch;
 
   var watcher = new Watcher({
     root: '.'
