@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-
 function ModuleServer(urlPrefix, load, getUrl) {
-
   if (!urlPrefix) {
     urlPrefix = './';
   }
 
   if (!load) {
+    // Provide a default load function. This function assumes that $LAB.js is
+    // present in the current page.
     (function() {
       var lab = window.$LAB;
+      // If you want to implement your own loader, make sure it supports
+      // executing JS in load order (ideally without blocking).
       load = function(url, cb) {
         lab.script(url).wait(cb);
       };
