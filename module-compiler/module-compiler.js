@@ -22,17 +22,24 @@ function compile(userArgs, cb) {
   });
   var args = [
     '-jar', __dirname + '/third-party/closure-compiler/compiler.jar',
+    // Adds default externs.
+    '--externs', __dirname + '/externs.js'
   ];
   jsFiles.forEach(function(filename) {
     args.push('--js', filename);
   });
   for (var key in userArgs) {
-    args.push('--' + key);
-    var val = userArgs[key];
-    // Closure compiler does not file --foo true.
-    if (val !== true) {
-      args.push(val);
+    var vals = userArgs[key];
+    if (!(vals instanceof Array)) {
+      vals = [vals];
     }
+    vals.forEach(function(val) {
+      args.push('--' + key);
+      // Closure compiler does not file --foo true.
+      if (val !== true) {
+        args.push(val);
+      }
+    })
   }
   console.log('Compiling ' + jsFiles.join(', ') + '\n...');
   run(args);

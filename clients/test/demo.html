@@ -4,16 +4,16 @@
 <script src="../module-client.js"></script>
 
 <script>
-var require = ModuleServer('http://127.0.0.1:1337/');
+window.loadModule = ModuleServer('http://127.0.0.1:1337/');
 
-require('module/foo', function() {
+loadModule('module/foo', function() {
   console.log('loaded module/foo');
-  require('app', function() {
+  loadModule('app', function() {
     console.log('loaded app');
   });
 });
 
-require('module/baz/foo', function() {
+loadModule('module/baz/foo', function() {
   console.log('loaded module/baz/foo');
 });
 

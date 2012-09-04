@@ -19,9 +19,9 @@ var compiler = require('./module-compiler.js')
 
 var config = opt.configSync({
 	process_common_js_modules: true,
-	use_only_custom_externs: true,  // TODO This is probably wrong.
 	source_map_format: 'V3',
 	create_source_map: '%outname%.map',
+  externs: []
 }, []);
 
 function usage() {
@@ -55,6 +55,10 @@ opt.option(["-o", "--module_output_path_prefix"], function (path) {
 opt.option(["--no-watch"], function (noWatch) {
   watch = !noWatch;
 }, 'Do not keep this program alive and watch for changes in input modules.');
+
+opt.option(["--externs"], function (extern) {
+  externs.push(extern);
+}, 'Path to an extern file for closure compiler.');
 
 opt.optionWith(process.argv);
 if (path.length < 1 || !config.common_js_entry_module || !config.module_output_path_prefix) {
