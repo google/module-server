@@ -1,5 +1,10 @@
 <!doctype html>
 
+<h1>Module Server Demo</h1>
+<p id="help">Make sure to start <code>node demo-server.js</code> and then just open this
+  file in your web browser</p>
+<pre id="log"></pre>
+
 <script src="../third-party/LABjs/LAB.src.js"></script>
 <script src="../module-client.js"></script>
 
@@ -7,14 +12,19 @@
 window.loadModule = ModuleServer('http://127.0.0.1:1337/');
 
 loadModule('module/foo', function() {
-  console.log('loaded module/foo');
+  log('loaded module/foo');
+  document.getElementById('help').style.display = 'none';
   loadModule('app', function() {
-    console.log('loaded app');
+    log('loaded app');
   });
 });
 
 loadModule('module/baz/foo', function() {
-  console.log('loaded module/baz/foo');
+  log('loaded module/baz/foo');
 });
+
+function log(msg) {
+	document.getElementById('log').textContent += msg + '\n';
+}
 
 </script>
