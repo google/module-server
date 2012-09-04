@@ -103,10 +103,10 @@ require('../module-server').from('./fixtures/build',
       t.ok(s0.map.mappings);
       t.is(s0.map.sourceRoot, prefix);
 
-      t.is(sections[1].offset.line, 3);
+      t.is(sections[1].offset.line, 4);
       t.is(sections[1].offset.column, 0);
       t.is(sections[1].map.file, files[1]);
-      t.is(sections[2].offset.line, 5);
+      t.is(sections[2].offset.line, 7);
       t.is(sections[2].offset.column, 0);
       t.is(sections[2].map.file, files[2]);
     }, options);
@@ -121,6 +121,7 @@ function getJs(names) {
   names.forEach(function(name) {
     var filename = './fixtures/build/' + name + '.js';
     js += require('fs').readFileSync(filename, 'utf8') + '\n';
+    js += 'ModuleServer.m.' + name + '=' + name + ';\n';
   });
   return js;
 }

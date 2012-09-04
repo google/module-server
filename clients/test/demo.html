@@ -19,12 +19,13 @@ loadModule('module/foo', function() {
   });
 });
 
-loadModule('module/baz/foo', function() {
-  log('loaded module/baz/foo');
+loadModule('module/baz/foo', function(foo) {
+  log('loaded module/baz/foo ');
+  log('Call loaded function: ' + foo.foo());
 });
 
 function log(msg) {
-	document.getElementById('log').textContent += msg + '\n';
+  document.getElementById('log').textContent += msg + '\n';
 }
 
 </script>

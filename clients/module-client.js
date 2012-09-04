@@ -38,20 +38,28 @@ function ModuleServer(urlPrefix, load, getUrl) {
     };
   }
 
-  var ModuleServer = function(urlPrefix) {
+  var Server = function(urlPrefix) {
     this.urlPrefix = urlPrefix;
     this.requested = {};
     this.requestedList = [];
     this.loaded = {};
   };
 
-  ModuleServer.prototype.load = function(module, cb) {
+  Server.prototype.load = function(module, cb) {
     var self = this;
     module = 'module$' + module.replace(/\//g, '$');
-    if (this.loaded[module]) {
-      cb()
+    if (this.loaded[module] || ModuleServer.m[module]) {
+      if (cb) {
+        cb(ModuleServer.m[module]);
+      }
       return;
     }
+    var userCb = cb;
+    cb = function() {
+      if (userCb) {
+        userCb(ModuleServer.m[module]);
+      }
+    };
     if (this.requested[module]) {
       this.requested[module].push(cb);
       return;
@@ -68,10 +76,13 @@ function ModuleServer(urlPrefix, load, getUrl) {
     });
   };
 
-  var instance = new ModuleServer(urlPrefix);
+  var instance = new Server(urlPrefix);
   return function(module, cb) {
     instance.load(module, cb);
   };
-};
+}
+
+// Registry for loaded modules.
+ModuleServer.m = {};
 
 // var require = ModuleServer();

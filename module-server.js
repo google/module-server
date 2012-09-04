@@ -71,6 +71,7 @@ function makeServer(graph, modules) {
       }
       var file = modules[name];
       js += file.js + '\n';
+      js += 'ModuleServer.m.' + name + '=' + name + ';\n';
       if (createSourceMap) {
         var map = file.getMap();
         map.sourceRoot = options.sourceMapSourceRootUrlPrefix;
@@ -81,7 +82,8 @@ function makeServer(graph, modules) {
           },
           map: map
         });
-        lineNumber = lineNumber + file.getNumberOfLines();
+        lineNumber = lineNumber + file.getNumberOfLines()
+          + 1  // The ModuleServer.m… line;
       }
     }
     var sourceMap = createSourceMap ? {

@@ -25,6 +25,11 @@ var $LAB; // Part of the standard client.
  * Loads a module and then calls the callback once the loaded code is
  * available.
  * @param {string} name Name of the module to load. e.g. 'my/app'
- * @param {function()} cb Callback to be called when the module loaded.
+ * @param {function(*)} cb Callback to be called when the module loaded.
+ *   The callback retrieves the exports object of the loaded module as the 1st
+ *   argument.
  */
 window.loadModule = function(name, cb) {};
+
+// Name of the default client
+var ModuleServer;
