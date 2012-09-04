@@ -18,6 +18,7 @@
  * Creates a Module loader.
  * USAGE:
  *   window.loadModule = ModuleServer('http://url./of/your/module/server/');
+ *   loadModule('your/module', function(yourModule) { … });
  * @param {string} urlPrefix URL prefix of your module server.
  * @param {function(string,Function)=} load OPTIONAL function to load JS
  *     from a given URL, that fires a callback when the JS loaded. If
