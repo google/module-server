@@ -17,13 +17,14 @@
 var exec = require('child_process').exec;
 
 function compile(userArgs, cb) {
+  var buildDir = userArgs.module_output_path_prefix
   var jsFiles = require('findit').sync('.').filter(function(filename) {
-    return /\.js$/.test(filename);
+    return /\.js$/.test(filename) && !/^module\$/.test(filename);
   });
   var args = [
     '-jar', __dirname + '/third-party/closure-compiler/compiler.jar',
     // Adds default externs.
-    '--externs', __dirname + '/externs.js'
+    '--externs', __dirname + '/externs.js',
   ];
   for (var key in userArgs) {
     // If the value is an array the key is appended one time per element in the

@@ -49,8 +49,9 @@ opt.option(['-e', '--common_js_entry_module', '--entry-module'], function (entry
 }, 'The file name of the main module from which all dependencies are derived.');
 
 opt.option(['-o', '--module_output_path_prefix'], function (path) {
-  config.module_output_path_prefix = (path.trim() || '').replace(/\/$/, '');
-}, 'The path to the output director for compiled modules.');
+  config.module_output_path_prefix = (path.trim() || '').replace(/\/$/, '') + '/';
+  config.output_module_dependencies = './module-graph.json';
+}, 'The path to the output directory for compiled modules.');
 
 opt.option(['--no-watch'], function () {
   watch = false;
