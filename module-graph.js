@@ -52,7 +52,7 @@ exports.fromFilename = function(filename, cb) {
 function Module(info) {
   this.name = info.name;
   this.inputs = info.inputs;
-  this.transitiveDeps = info['transitive-requires'];
+  this.transitiveDeps = info['transitive-requires'].reverse();
 }
 
 Module.prototype.toString = function() {

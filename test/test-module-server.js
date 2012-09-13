@@ -17,7 +17,7 @@
 var test = require('tap').test;
 
 require('../module-server').from('./fixtures/build',
-    './fixtures/graph.json', function(err, server) {
+    './fixtures/sample-module/module-graph.json', function(err, server) {
   test('module server', function(t) {
     t.plan(11);
 
