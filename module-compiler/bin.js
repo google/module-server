@@ -34,12 +34,12 @@ var watch = true;
 
 opt.option(['-h', '--help'], usage, 'This help screen.');
 
-opt.option(['-p', '--module-path'], function (p) {
+opt.option(['-p', '--module_path'], function (p) {
   console.log(p);
   path = p.trim();
 }, 'The search path for modules.');
 
-opt.option(['-e', '--common_js_entry_module', '--entry-module'], function (entryModule) {
+opt.option(['-e', '--entry_module'], function (entryModule) {
   var filename = entryModule.trim();
   if (filename && !/\.js$/) {
     filename = filename + '.js';
@@ -48,7 +48,7 @@ opt.option(['-e', '--common_js_entry_module', '--entry-module'], function (entry
   config.common_js_entry_module = filename;
 }, 'The file name of the main module from which all dependencies are derived.');
 
-opt.option(['-o', '--module_output_path_prefix'], function (path) {
+opt.option(['-o', '--output_path'], function (path) {
   config.module_output_path_prefix = (path.trim() || '').replace(/\/$/, '') + '/';
   config.output_module_dependencies = './module-graph.json';
 }, 'The path to the output directory for compiled modules.');

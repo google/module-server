@@ -1,20 +1,22 @@
 Module Server
 ==============
 
-Module server is a system for efficient serving of CommonJS modules to web browsers. It works within the following constraints:
+Module server is a system for efficient serving of CommonJS modules to web browsers. The core feature is that it supports *incremental loading* of modules and their dependencies with exactly 1 HTTP request per incremental load.
+
+The serving system implements the following constraints:
 
 - Requesting a module initiates exactly 1 HTTP request
 - This single requests contains the requested module and all its dependencies.
 - Incremental loading (every module request after the first one) of additional modules only downloads dependencies that have not been requested already.
 - The client does not need to download a dependency tree to decide which additional dependencies to download.
 
-For many web applications serving all JavaScript in a single compiled binary may be a good enough, simple solution, more complex apps with large JS code bases will profit from only downloading code when it is needed. While AMD loaders such as require.js implement incremental loading as well, they often do so through recursive downloading of dependencies which may significantly degrade latency.
+For many web applications serving all JavaScript in a single compiled binary may be a good enough, simple solution, more complex apps with large JS code bases will profit from only downloading code when it is needed. While AMD loaders such as [require.js](http://requirejs.org/) implement incremental loading as well, they often do so through recursive downloading of dependencies which may significantly degrade latency.
 
-Closure compiler supports both compilation of CoomonJS and AMD modules. It should thus be possibly to use this system as a production frontend for projects that use other systems such as require.js or browserify today.
+Closure compiler supports both compilation of CoomonJS and AMD modules. It should thus be possible to use this system as a production frontend for projects that use other systems such as require.js or browserify today.
 
 ## SourceMaps
 
-By default all JS responses support sourcemaps for optimal debugging with Chrome Dev Tools (Don't forget to activate sourcemap support in the Dev Tools settings). We recommend to deactivate this for production use, if you only want to provide clients access to obfuscated JS
+By default all JS responses support [sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/) for optimal debugging with Chrome Dev Tools (Don't forget to activate sourcemap support in the Dev Tools settings). We recommend to deactivate this for production use, if you only want to provide clients access to obfuscated JS
 
 ## Setup
 

@@ -70,9 +70,12 @@ function compile(userArgs, cb) {
 }
 
 var idle = true;
+var count = 0;
 function compileIfIdle(path, args) {
-  // TODO remove this chdir.
-  process.chdir(path);
+  if (count++ == 0) {
+    // TODO remove this chdir.
+    process.chdir(path);
+  }
   if (idle) {
     idle = false;
     compile(args, function() {
@@ -84,7 +87,7 @@ function compileIfIdle(path, args) {
 exports.compile = compileIfIdle;
 exports.watch = function(path, args) {
   function onChange(type, o) {
-    if (o.path !== 'graph.json') { // TODO get rid of this.
+    if (o.path !== 'module-graph.json') { // TODO get rid of this.
       console.log(type + ': ' + o.path + (o.dir === true ? ' [DIR]' : ''))
       compileIfIdle(path, args);
     }
