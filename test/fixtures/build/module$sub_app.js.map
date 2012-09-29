@@ -2,7 +2,7 @@
 "version":3,
 "file":"module$sub_app",
 "lineCount":1,
-"mappings":";",
-"sources":[],
-"names":[]
+"mappings":"AAAA,IAAAA,eAAA,QAAiBC,QAAQ,EAAG,CAC1B,MAAO,KADmB,CAA5B,UAImBC,QAAQ,EAAG,CAC5BC,UAAA,CAAW,gBAAX,CAA6B,QAAQ,EAAM,EAA3C,CAD4B,CAJ9B;",
+"sources":["sub-app.js"],
+"names":["module$sub_app","module$sub_app.subApp","module$sub_app.testLoad","loadModule"]
 }

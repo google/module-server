@@ -26,6 +26,8 @@ var config = opt.configSync({
 
 function usage() {
   opt.usage();
+  console.log('Example: node bin.js --module_path=../test/fixtures/sample-module ' +
+      '--entry_module=app --output_path=../build/');
   process.exit(0);
 }
 

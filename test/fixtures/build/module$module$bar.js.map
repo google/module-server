@@ -2,7 +2,7 @@
 "version":3,
 "file":"module$module$bar",
 "lineCount":1,
-"mappings":";",
-"sources":[],
-"names":[]
+"mappings":"AAAA,IAAAA,kBAAA,KAAcC,QAAQ,EAAG,CACvB,MAAO,KADgB,CAAzB;",
+"sources":["module/bar.js"],
+"names":["module$module$bar","module$module$bar.bar"]
 }

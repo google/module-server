@@ -14,9 +14,9 @@ For many web applications serving all JavaScript in a single compiled binary may
 
 Closure compiler supports both compilation of CoomonJS and AMD modules. It should thus be possible to use this system as a production frontend for projects that use other systems such as require.js or browserify today.
 
-## SourceMaps
+## Source Maps
 
-By default all JS responses support [sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/) for optimal debugging with Chrome Dev Tools (Don't forget to activate sourcemap support in the Dev Tools settings). We recommend to deactivate this for production use, if you only want to provide clients access to obfuscated JS
+By default all JS responses support [source maps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/) for optimal debugging with Chrome Dev Tools (Don't forget to activate source map support in the Dev Tools settings). We recommend to deactivate this for production use, if you only want to provide clients access to obfuscated JS
 
 ## Setup
 
@@ -24,13 +24,22 @@ See demo-server.js for an example server. You may want to adapt this to your ind
 
 ## Client
 
-clients/module-client.js provides the in-browser module loader. It depends on $LAB.js but should be easily adaptable to most JS loaders.
+[clients/module-client.js](blob/master/clients/module-client.js) provides the in-browser module loader. It depends on $LAB.js but should be easily adaptable to most JS loaders.
 
-TODO example
+This will get you started:
+
+`<script src="../third-party/LABjs/LAB.src.js"></script>
+<script src="../module-client.js"></script>
+
+<script>
+window.loadModule = ModuleServer('http://127.0.0.1:1337/');
+</script>`
+
+Whenever you want to do an incremental load of a module, replace `require('foo')` with `loadModule('foo', function(foo) { … })` and you are all set.
 
 ## Compiler
 
-module-compiler/bin.js is a wrapper around closure compiler for compiling JS for serving with Module Server. Run with --help for usage. It supports watching a directly tree for automatic compilation when you change your sources and it ships with closure compiler for easy installation.
+[module-compiler/bin.js](blob/master/module-compiler/bin.js) is a wrapper around closure compiler for compiling JS for serving with Module Server. Run with --help for usage. It supports watching a directory tree for automatic compilation when you change your sources and it ships with closure compiler for easy installation.
 
 Make sure you have the java binary in your path :)
 

@@ -2,7 +2,7 @@
 "version":3,
 "file":"module$app",
 "lineCount":1,
-"mappings":"AAAA,IAAAA,eAAA,QAAiBC,QAAQ,EAAG,CAC1B,MAAO,KADmB,CAA5B,UAImBC,QAAQ,EAAG,CAC5BC,UAAA,CAAW,gBAAX,CAA6B,QAAQ,EAAM,EAA3C,CAD4B,CAJ9B,C,CCAA,IAAAC,kBAAA,KAAcC,QAAQ,EAAG,CACvB,MAAO,KADgB,CAAzB,C,CCAA,IAAAC,sBAAA,KAAcC,QAAQ,EAAG,CACvB,MAAO,MADgB,CAAzB,C,CCAA,IAAAC,kBAAA,EAAA,CAAIC,wBAAOH,qBAAX,CACII,uBAAMN,iB,CCDV,IAAAO,cAAA,EAAA,CAAIC,sBAASJ,iBAKbK,cAAAC,KAAA,CAAeC,QAAQ,EAAG,CACxB,MAAOH,sBADiB,C,CCL1B,IAAAI,WAAA,EAAA,CAAIJ,mBAASD,aAAb,CACIC,mBAASZ;",
-"sources":["sub-app.js","module/bar.js","module/baz/foo.js","module/foo.js","module.js","app.js"],
-"names":["module$sub_app","module$sub_app.subApp","module$sub_app.testLoad","loadModule","module$module$bar","module$module$bar.bar","module$module$baz$foo","module$module$baz$foo.foo","module$module$foo","impl","bar","module$module","module","exports","test","module$module.test","module$app"]
+"mappings":"AAAA,IAAAA,WAAA,EAAA,CAAIC,mBAASC,aAAb,CACID,mBAASE;",
+"sources":["app.js"],
+"names":["module$app","module","module$module","module$sub_app"]
 }

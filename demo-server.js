@@ -24,7 +24,7 @@ var ORIGINAL_SOURCE_PATH_PREFIX = 'http://127.0.0.1:1337/_js';
 var ORIGINAL_SOURCE_PATH_PREFIX_REGEX = /^\/_js\//;
 
 require('./module-server').from(SOURCE_DIR + '/build',
-    SOURCE_DIR + '/graph.json', run);
+    SOURCE_DIR + '/sample-module/module-graph.json', run);
 
 function run(err, moduleServer) {
   if (err) {
