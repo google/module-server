@@ -25,9 +25,9 @@ var config = opt.configSync({
 }, []);
 
 function usage() {
+  console.log('Example: node module-compiler/bin.js  --module_path=' +
+      './test/fixtures/sample-module --entry_module=app --output_path=./build/');
   opt.usage();
-  console.log('Example: node bin.js --module_path=../test/fixtures/sample-module ' +
-      '--entry_module=app --output_path=../build/');
   process.exit(0);
 }
 
@@ -64,7 +64,8 @@ opt.option(['--externs'], function (extern) {
 }, 'Path to an extern file for closure compiler.');
 
 opt.optionWith(process.argv);
-if (path.length < 1 || !config.common_js_entry_module || !config.module_output_path_prefix) {
+if (!path || path.length < 1 || !config.common_js_entry_module ||
+    !config.module_output_path_prefix) {
   usage();
 }
 

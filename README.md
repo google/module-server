@@ -28,12 +28,12 @@ See demo-server.js for an example server. You may want to adapt this to your ind
 
 This will get you started:
 
-                <script src="../third-party/LABjs/LAB.src.js"></script>
-                <script src="../module-client.js"></script>
+    <script src="../third-party/LABjs/LAB.src.js"></script>
+    <script src="../module-client.js"></script>
 
-                <script>
-                window.loadModule = ModuleServer('http://127.0.0.1:1337/');
-                </script>
+    <script>
+    window.loadModule = ModuleServer('http://127.0.0.1:1337/');
+    </script>
 
 Whenever you want to do an incremental load of a module, replace `require('foo')` with `loadModule('foo', function(foo) { … })` and you are all set.
 
@@ -42,6 +42,10 @@ Whenever you want to do an incremental load of a module, replace `require('foo')
 [module-compiler/bin.js](blob/master/module-compiler/bin.js) is a wrapper around closure compiler for compiling JS for serving with Module Server. Run with --help for usage. It supports watching a directory tree for automatic compilation when you change your sources and it ships with closure compiler for easy installation.
 
 Make sure you have the java binary in your path :)
+
+Example:
+
+    node module-compiler/bin.js  --module_path=./test/fixtures/sample-module --entry_module=app --output_path=./build/
 
 ## Fine print
 
