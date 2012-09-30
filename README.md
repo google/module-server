@@ -12,7 +12,7 @@ The serving system implements the following constraints:
 
 For many web applications serving all JavaScript in a single compiled binary may be a good enough, simple solution, more complex apps with large JS code bases will profit from only downloading code when it is needed. While AMD loaders such as [require.js](http://requirejs.org/) implement incremental loading as well, they often do so through recursive downloading of dependencies which may significantly degrade latency.
 
-Closure compiler supports both compilation of CoomonJS and AMD modules. It should thus be possible to use this system as a production frontend for projects that use other systems such as require.js or browserify today.
+Closure compiler supports both compilation of CommonJS and AMD modules. It should thus be possible to use this system as a production frontend for projects that use other systems such as require.js or browserify today.
 
 ## Source Maps
 
