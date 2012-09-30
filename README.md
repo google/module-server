@@ -20,7 +20,11 @@ By default all JS responses support [source maps](http://www.html5rocks.com/en/t
 
 ## Setup
 
-See demo-server.js for an example server. You may want to adapt this to your individual serving stack (such as as for use within express). We recommend doing actual serving through a caching reverse proxy CDN network for minimal latency.
+See [demo-server.js](blob/master/demo-server.js) for an example server. You may want to adapt this to your individual serving stack (such as as for use within express). We recommend doing actual serving through a caching reverse proxy CDN network for minimal latency.
+
+### Demo
+
+Run `node demo-server.js` then drag [clients/test/demo.html](blob/master/clients/test/demo.html) to a browser window.
 
 ## Client
 
