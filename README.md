@@ -28,12 +28,12 @@ See demo-server.js for an example server. You may want to adapt this to your ind
 
 This will get you started:
 
-`<script src="../third-party/LABjs/LAB.src.js"></script>
-<script src="../module-client.js"></script>
+                <script src="../third-party/LABjs/LAB.src.js"></script>
+                <script src="../module-client.js"></script>
 
-<script>
-window.loadModule = ModuleServer('http://127.0.0.1:1337/');
-</script>`
+                <script>
+                window.loadModule = ModuleServer('http://127.0.0.1:1337/');
+                </script>
 
 Whenever you want to do an incremental load of a module, replace `require('foo')` with `loadModule('foo', function(foo) { … })` and you are all set.
 
