@@ -49,7 +49,7 @@ Make sure you have the java binary in your path :)
 
 Example:
 
-    node module-compiler/bin.js  --module_path=./test/fixtures/sample-module --entry_module=app --output_path=./build/
+    node module-compiler/bin.js  --module_path=./test/fixtures/sample-module --entry_module=app --output_path=../build/
 
 ## Fine print
 

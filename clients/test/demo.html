@@ -5,6 +5,8 @@
   file in your web browser</p>
 <pre id="log"></pre>
 
+<button onclick="loadMoreCode()">Load more code</button>
+
 <script src="../third-party/LABjs/LAB.src.js"></script>
 <script src="../module-client.js"></script>
 
@@ -26,6 +28,12 @@ loadModule('module/baz/foo', function(foo) {
 
 function log(msg) {
   document.getElementById('log').textContent += msg + '\n';
+}
+
+function loadMoreCode() {
+  loadModule('sub_app', function(app) {
+    app.testLoad()
+  });
 }
 
 </script>

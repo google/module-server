@@ -2,7 +2,7 @@
 "version":3,
 "file":"module$module$baz$foo",
 "lineCount":1,
-"mappings":"AAAA,IAAAA,sBAAA,KAAcC,QAAQ,EAAG,CACvB,MAAO,MADgB,CAAzB;",
+"mappings":"AAAA,IAAAA,sBAAA,KAAcC,QAAQ,EAAG,CACvB,MAAO,MADgB,CAAzB,KAIcC,QAAQ,CAACC,CAAD,CAAM,CAC1BC,MAAAC,IAAA,CAAWF,CAAX,CAD0B,CAJ5B;",
 "sources":["module/baz/foo.js"],
-"names":["module$module$baz$foo","module$module$baz$foo.foo"]
+"names":["module$module$baz$foo","module$module$baz$foo.foo","module$module$baz$foo.log","msg","window","log"]
 }
