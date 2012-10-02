@@ -3,6 +3,8 @@ Module Server
 
 Module server is a system for efficient serving of CommonJS modules to web browsers. The core feature is that it supports *incremental loading* of modules and their dependencies with exactly 1 HTTP request per incremental load.
 
+This is a *reference implementation* that has not been battle-tested in production use. See our [presentation from JSConf EU 2012](https://docs.google.com/presentation/d/1JyyuXYurRGvEbcJzY5cavzahg9nvpUoE9jHEm1suxDU/preview) for more details.
+
 The serving system implements the following constraints:
 
 - Requesting a module initiates exactly 1 HTTP request
