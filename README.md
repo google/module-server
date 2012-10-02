@@ -53,8 +53,10 @@ Example:
 
 ## Fine print
 
+Pull requests are very much appreciated. Please sign the [Google Code contributor license agreement](http://code.google.com/legal/individual-cla-v1.0.html) (There is a convenient online form) before submitting.
+
 <dl>
-  <dt>Author</dt><dd><a href="https://github.com/cramforce">Malte Ubl</a></dd>
+  <dt>Author</dt><dd><a href="https://github.com/cramforce">Malte Ubl (Google Inc.)</a></dd>
   <dt>Copyright</dt><dd>Copyright © 2012 Google, Inc.</dd>
   <dt>License</dt><dd>Apache 2.0</dd>
 </dl>
