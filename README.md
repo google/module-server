@@ -55,6 +55,10 @@ Example:
 
 See the [INSTALL](module-server/blob/master/module-compiler/INSTALL.md) instructions.
 
+### Compilation
+
+Create a file called `app.js` (or whatever you like) and require all of your top-level modules in it (the ones you actually want to request from your application). This will ensure that everything gets compiled in one go.
+
 ## Fine print
 
 Pull requests are very much appreciated. Please sign the [Google Code contributor license agreement](http://code.google.com/legal/individual-cla-v1.0.html) (There is a convenient online form) before submitting.
