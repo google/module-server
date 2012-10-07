@@ -17,14 +17,14 @@
 var http = require('http');
 var fs = require('fs');
 
-var SOURCE_DIR = 'test/fixtures';
+var SOURCE_DIR = 'test/fixtures/sample-module';
 var SOURCEMAP_PREFIX = '/_sourcemap';
 var SOURCEMAP_PATH_PREFIX_REGEX = /^\/_sourcemap\//;
 var ORIGINAL_SOURCE_PATH_PREFIX = 'http://127.0.0.1:1337/_js';
 var ORIGINAL_SOURCE_PATH_PREFIX_REGEX = /^\/_js\//;
 
-require('./module-server').from(SOURCE_DIR + '/build',
-    SOURCE_DIR + '/sample-module/module-graph.json', run);
+require('./module-server').from(SOURCE_DIR + '/../build',
+    SOURCE_DIR + '/module-graph.json', run);
 
 function run(err, moduleServer) {
   if (err) {
