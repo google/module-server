@@ -20,6 +20,8 @@ var compiler = require('./module-compiler.js')
 var config = opt.configSync({
 	process_common_js_modules: true,
 	source_map_format: 'V3',
+  // Triggers generation of one output file per CJS module.
+  module: 'auto',
 	create_source_map: '%outname%.map',
   externs: []
 }, []);
