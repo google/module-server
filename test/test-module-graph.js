@@ -23,7 +23,7 @@ test('instantiation', function(t) {
   var deps = ['bar'];
   var data = [{
     name: name,
-    'transitive-requires': deps
+    'transitive-dependencies': deps
   }];
   var graph = moduleGraph.fromSerialization(data);
   t.is(graph.getAllModules().length, 1);
@@ -37,18 +37,19 @@ test('graph', function(t) {
   var data = getJson(filename);
   moduleGraph.fromFilename(filename, function(err, graph) {
     t.is(err, null);
-    t.is(graph.getAllModules().length, 6);
+    t.is(graph.getAllModules().length, 7);
     t.is(graph.getAllModules()[0], data[0].name);
 
     var modules = graph.getModules(['module$app']);
-    t.equivalent(modules, ['module$module$bar', 'module$module$baz$foo',
-        'module$sub_app', 'module$module$foo', 'module$module', 'module$app']);
+    t.equivalent(modules, ['root', 'module$module$bar',
+        'module$module$baz$foo', 'module$sub_app', 'module$module$foo',
+        'module$module', 'module$app']);
 
     var modules = graph.getModules(['module$sub_app']);
-    t.equivalent(modules, ['module$sub_app']);
+    t.equivalent(modules, ['root', 'module$sub_app']);
 
     var modules = graph.getModules(['module$sub_app', 'module$module$bar']);
-    t.equivalent(modules, ['module$sub_app', 'module$module$bar']);
+    t.equivalent(modules, ['root', 'module$sub_app', 'module$module$bar']);
 
     var notFound = 'Does not exist';
     t.throws(function() {

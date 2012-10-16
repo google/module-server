@@ -16,20 +16,24 @@
 
 var test = require('tap').test;
 
+// 'root' is a virtual module that all modules depend on.
+var ROOT_MODULE_PREFIX = '\n\nModuleServer.m.root=root;\n';
+
 require('../module-server').from('./fixtures/build',
     './fixtures/sample-module/module-graph.json', function(err, server) {
   test('module server', function(t) {
     t.plan(11);
 
     var subApp = getJs('module$sub_app');
+    var subAppAndRoot = ROOT_MODULE_PREFIX + subApp;
     server(['module$sub_app'], [], function(err, length, js, sourceMap) {
       t.is(err, null);
-      t.is(js, subApp);
-      t.is(length, subApp.length);
+      t.is(js, subAppAndRoot);
+      t.is(length, subAppAndRoot.length);
       t.is(sourceMap, null);
     });
 
-    var expectedJs = subApp + getJs(['module$module$bar',
+    var expectedJs = ROOT_MODULE_PREFIX + subApp + getJs(['module$module$bar',
         'module$module$baz$foo', 'module$module$foo']);
     server(['module$sub_app', 'module$module$foo'], [],
         function(err, length, js) {
