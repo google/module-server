@@ -2,8 +2,6 @@
 var exec = require('child_process').exec;
 var fs = require('fs');
 
-console.log(__dirname, __filename);
-
 fs.exists(__dirname + '/clients/third-party/LABjs/LAB.js', function(exists) {
   runServer = function() {
     require(__dirname + '/demo-server');
@@ -13,8 +11,9 @@ fs.exists(__dirname + '/clients/third-party/LABjs/LAB.js', function(exists) {
     runServer();
     return;
   }
-  
-  var child = exec('cd ' + __dirname + ' && ls && git submodule update',
+ 
+  // JIC we haven't run the npm setup script
+  var child = exec('cd ' + __dirname + ' && git submodule update',
     function (error, stdout, stderr) {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
@@ -24,7 +23,7 @@ fs.exists(__dirname + '/clients/third-party/LABjs/LAB.js', function(exists) {
     }
   );
 
-  child.on('close', runServer); 
+  child.on('close', runServer);
 });
 
 
