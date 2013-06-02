@@ -1,0 +1,3 @@
+[submodule "LABjs"]
+  path = clients/third-party/LABjs
+  url = git://github.com/getify/LABjs

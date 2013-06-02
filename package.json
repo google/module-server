@@ -1,0 +1,24 @@
+{
+  "name":"module-server",
+  "version":"0.0.1-alpha",
+  "license":{
+    "type":"Apache 2.0",
+    "url":"http://code.google.com/legal/individual-cla-v1.0.html"
+  },
+  "devDependencies":{
+    "tag":"latest"
+  },
+  "author":{
+    "name":"Malte Ubl",
+    "url":"https://github.com/cramforce"
+  },
+  "bugs":"https://github.com/google/module-server/issues",
+  "bin":{
+    "module-server":"./bin.js"
+  },
+  "repository":{
+    "type":"git",
+    "url":"https://github.com/google/module-server.git"
+  },
+  "main":"module-server.js"
+}

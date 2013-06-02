@@ -55,6 +55,46 @@ function run(err, moduleServer) {
 
   http.createServer(function (req, res) {
     var url = require('url').parse(req.url);
+    //Load static files for demo
+    switch(url.pathname) {
+      case "/demo.html":
+        fs.readFile(__dirname + '/clients/test/demo.html', 'utf8', function (err, html) {
+          if(err) {
+            throw err;
+          } else {
+            res.writeHead(200, {
+              'Content-Type': 'text/html',
+              'Content-Length': html.length
+            });
+            res.end(html, 'utf8');
+          }
+        });
+        return;
+      case "/third-party/LABjs/LAB.src.js":
+        fs.readFile(__dirname + '/clients/third-party/LABjs/LAB.src.js', 'utf8', function (err, js) {
+          if(err) {
+            throw err;
+          } else {
+            res.writeHead(200, {
+              'Content-Type': 'application/javascript',
+            });
+            res.end(js, 'utf8');
+          }
+        });
+        return; 
+      case "/module-client.js":
+        fs.readFile(__dirname + '/clients/module-client.js', 'utf8', function (err, js) {
+          if(err) {
+            throw err;
+          } else {
+            res.writeHead(200, {
+              'Content-Type': 'application/javascript',
+            });
+            res.end(js, 'utf8');
+          }
+        });
+        return;
+    }
     console.log('Path ' + url.pathname);
     if (ORIGINAL_SOURCE_PATH_PREFIX_REGEX.test(url.pathname)) {
       var filename = SOURCE_DIR + '/' + url.pathname
