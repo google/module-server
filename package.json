@@ -20,5 +20,8 @@
     "type":"git",
     "url":"https://github.com/google/module-server.git"
   },
+  "scripts":{
+    "preinstall":"git clone git://github.com/getify/LABjs clients/third-party/LABjs"
+  },
   "main":"module-server.js"
 }

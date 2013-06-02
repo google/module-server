@@ -17,7 +17,7 @@
 var http = require('http');
 var fs = require('fs');
 
-var SOURCE_DIR = 'test/fixtures/sample-module';
+var SOURCE_DIR = __dirname + '/test/fixtures/sample-module';
 var SOURCEMAP_PREFIX = '/_sourcemap';
 var SOURCEMAP_PATH_PREFIX_REGEX = /^\/_sourcemap\//;
 var ORIGINAL_SOURCE_PATH_PREFIX = 'http://127.0.0.1:1337/_js';

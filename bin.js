@@ -2,9 +2,11 @@
 var exec = require('child_process').exec;
 var fs = require('fs');
 
-fs.exists('clients/third-party/LABjs/LAB.js', function(exists) {
+console.log(__dirname, __filename);
+
+fs.exists(__dirname + '/clients/third-party/LABjs/LAB.js', function(exists) {
   runServer = function() {
-    require('./demo-server');
+    require(__dirname + '/demo-server');
   };
 
   if (exists) {
@@ -12,7 +14,7 @@ fs.exists('clients/third-party/LABjs/LAB.js', function(exists) {
     return;
   }
   
-  var child = exec('git submodule update',
+  var child = exec('cd ' + __dirname + ' && ls && git submodule update',
     function (error, stdout, stderr) {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
