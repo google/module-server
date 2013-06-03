@@ -1,5 +1,6 @@
 <!doctype html>
-
+<html>
+<body>
 <h1>Module Server Demo</h1>
 <p id="help">Make sure to start <code>node demo-server.js</code> and then just open this
   file in your web browser</p>
@@ -12,7 +13,7 @@
 
 <script>
 window.loadModule = ModuleServer('http://127.0.0.1:1337/');
-
+root = {};
 loadModule('module/foo', function() {
   log('loaded module/foo');
   document.getElementById('help').style.display = 'none';
@@ -37,3 +38,5 @@ function loadMoreCode() {
 }
 
 </script>
+</body>
+</html>

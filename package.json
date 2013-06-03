@@ -1,0 +1,27 @@
+{
+  "name":"module-server",
+  "version":"0.0.1-alpha",
+  "license":{
+    "type":"Apache 2.0",
+    "url":"http://code.google.com/legal/individual-cla-v1.0.html"
+  },
+  "devDependencies":{
+    "tag":"latest"
+  },
+  "author":{
+    "name":"Google Inc.",
+    "url":"https://github.com/google"
+  },
+  "bugs":"https://github.com/google/module-server/issues",
+  "bin":{
+    "module-server":"./bin.js"
+  },
+  "repository":{
+    "type":"git",
+    "url":"https://github.com/google/module-server.git"
+  },
+  "scripts":{
+    "preinstall":"git clone git://github.com/getify/LABjs clients/third-party/LABjs"
+  },
+  "main":"module-server.js"
+}
