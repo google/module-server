@@ -55,7 +55,7 @@ function run(err, moduleServer) {
 
   http.createServer(function (req, res) {
     var url = require('url').parse(req.url);
-    //Load static files for demo
+    // Load static files for demo
     switch(url.pathname) {
       case "/demo.html":
         fs.readFile(__dirname + '/clients/test/demo.html', 'utf8', function (err, html) {
