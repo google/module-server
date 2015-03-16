@@ -34,22 +34,15 @@ function run(err, moduleServer) {
     path = path.replace(/^\//, '');
     var parts = path.split(/\//);
     var modules = decodeURIComponent(parts.shift()).split(/,/);
-    var options = {};
-    parts.forEach(function(part) {
-      var pair = part.split(/=/);
-      options[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-    });
     var exclude = null;
-    if(options.exm) {
-      exclude = options.exm.split(/,/);
+    if (parts.length) {
+      exclude = decodeURIComponent(parts.shift()).split(/,/);
     }
     return moduleServer(modules, exclude, onJs, {
       createSourceMap: isSourceMapRequest,
       sourceMapSourceRootUrlPrefix: ORIGINAL_SOURCE_PATH_PREFIX,
       debug: true,
-      onLog: function() {
-        console.log(arguments);
-      }
+      onLog: console.log
     });
   }
 
