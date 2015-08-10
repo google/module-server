@@ -22,15 +22,15 @@ By default all JS responses support [source maps](http://www.html5rocks.com/en/t
 
 ## Setup
 
-See [demo-server.js](module-server/blob/master/demo-server.js) for an example server. You may want to adapt this to your individual serving stack (such as as for use within express). We recommend doing actual serving through a caching reverse proxy CDN network for minimal latency.
+See [demo-server.js](demo-server.js) for an example server. You may want to adapt this to your individual serving stack (such as as for use within express). We recommend doing actual serving through a caching reverse proxy CDN network for minimal latency.
 
 ### Demo
 
-Run `node demo-server.js` then drag [clients/test/demo.html](module-server/blob/master/clients/test/demo.html) to a browser window.
+Run `node demo-server.js` then drag [clients/test/demo.html](clients/test/demo.html) to a browser window.
 
 ## Client
 
-[clients/module-client.js](module-server/blob/master/clients/module-client.js) provides the in-browser module loader. It depends on $LAB.js but should be easily adaptable to most JS loaders.
+[clients/module-client.js](clients/module-client.js) provides the in-browser module loader. It depends on $LAB.js but should be easily adaptable to most JS loaders.
 
 This will get you started:
 
@@ -45,7 +45,7 @@ Whenever you want to do an incremental load of a module, replace `require('foo')
 
 ## Compiler
 
-[module-compiler/bin.js](module-server/blob/master/module-compiler/bin.js) is a wrapper around closure compiler for compiling JS for serving with Module Server. Run with --help for usage. It supports watching a directory tree for automatic compilation when you change your sources and it ships with closure compiler for easy installation.
+[module-compiler/bin.js](module-compiler/bin.js) is a wrapper around closure compiler for compiling JS for serving with Module Server. Run with --help for usage. It supports watching a directory tree for automatic compilation when you change your sources and it ships with closure compiler for easy installation.
 
 Make sure you have the java binary in your path :)
 
@@ -53,7 +53,7 @@ Example:
 
     node module-compiler/bin.js  --module_path=./test/fixtures/sample-module --entry_module=app --output_path=../build/
 
-See the [INSTALL](module-server/blob/master/module-compiler/INSTALL.md) instructions.
+See the [INSTALL](module-compiler/INSTALL.md) instructions.
 
 ### Compilation
 
